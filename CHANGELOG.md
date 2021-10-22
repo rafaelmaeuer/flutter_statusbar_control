@@ -1,3 +1,7 @@
+## 3.0.2
+* Fix Support for Android V2
+* Thanks to https://github.com/jWinterDay
+
 ## 3.0.1
 * Fix MissingPluginException for flutter web
 * Thanks to https://github.com/rafaelmaeuer
