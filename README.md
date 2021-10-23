@@ -1,8 +1,9 @@
 # flutter_statusbar_manager
 
-Now compatible with flutter web thanks to https://github.com/rafaelmaeuer  
-Now with support for null safety thanks to https://github.com/NarHakobyan  
-Now compatible with AndroidX thanks to https://github.com/lorenzOliveto
+Now with support for Android V2 thanks to [jWinterDay](https://github.com/jWinterDay) and [rafaelmaeuer](https://github.com/rafaelmaeuer) (v3.1.0)  
+Now compatible with flutter web thanks to [rafaelmaeuer](https://github.com/rafaelmaeuer) (v3.0.1)  
+Now with support for null safety thanks to [NarHakobyan](https://github.com/NarHakobyan) (v3.0.0)  
+Now compatible with AndroidX thanks to [lorenzOliveto](https://github.com/lorenzOliveto) (v2.0.0)
 
 Flutter Statusbar Manager, lets you control the status bar color, style (theme), visibility, and translucent properties across iOS and Android. With some added bonus for Android to control the Navigation Bar.
 
@@ -68,10 +69,10 @@ import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 The `setColor` method will set the status bar background color. On iOS the method will always return a successful `Future`.
 
-| Parameter|Type|Default| Required | Description |
-| :------------|:---:|:---:|:---:|:-----|
-| color |`Color`| none | Yes | The color to be set as background, can use colors with opacity. |
-| animated |`bool`| false | No | Whether or not to animate the color change. |
+| Parameter |  Type   | Default | Required | Description                                                     |
+| :-------- | :-----: | :-----: | :------: | :-------------------------------------------------------------- |
+| color     | `Color` |  none   |   Yes    | The color to be set as background, can use colors with opacity. |
+| animated  | `bool`  |  false  |    No    | Whether or not to animate the color change.                     |
 
 ```dart
 await FlutterStatusbarManager.setColor(Colors.green, animated:true);
@@ -82,9 +83,9 @@ await FlutterStatusbarManager.setColor(Colors.green, animated:true);
 
 The `setTranslucent` method will set the status bar translucent status. On iOS the methods will always return a successful `Future`.
 
-| Parameter|Type|Default| Required | Description |
-| :------------|:---:|:---:|:---:|:-----|
-| translucent |`bool`| none | Yes | Whether or not the status bar will be translucent. |
+| Parameter   |  Type  | Default | Required | Description                                        |
+| :---------- | :----: | :-----: | :------: | :------------------------------------------------- |
+| translucent | `bool` |  none   |   Yes    | Whether or not the status bar will be translucent. |
 
 ```dart
 await FlutterStatusbarManager.setTranslucent(true);
@@ -95,10 +96,10 @@ await FlutterStatusbarManager.setTranslucent(true);
 
 The `setHidden` will hide the status bar.
 
-| Parameter|Type|Default| Required | Description |
-| :------------|:---:|:---:|:---:|:-----|
-| hidden |`bool`| none | Yes | Whether or not to hide the status bar. |
-| animation |`StatusBarAnimation`| StatusBarAnimation.NONE | No | The hiding animation to use `(iOS only)`. |
+| Parameter |         Type         |         Default         | Required | Description                               |
+| :-------- | :------------------: | :---------------------: | :------: | :---------------------------------------- |
+| hidden    |        `bool`        |          none           |   Yes    | Whether or not to hide the status bar.    |
+| animation | `StatusBarAnimation` | StatusBarAnimation.NONE |    No    | The hiding animation to use `(iOS only)`. |
 
 ```dart
 await FlutterStatusbarManager.setHidden(true, animation:StatusBarAnimation.SLIDE);
@@ -109,9 +110,9 @@ await FlutterStatusbarManager.setHidden(true, animation:StatusBarAnimation.SLIDE
 
 The `setStyle` method will set the status bar theme.
 
-| Parameter|Type|Default| Required | Description |
-| :------------|:---:|:---:|:---:|:-----|
-| style |`StatusBarStyle`| none | Yes | The status bar theme to use for styling, can either be light, dark, default. |
+| Parameter |       Type       | Default | Required | Description                                                                  |
+| :-------- | :--------------: | :-----: | :------: | :--------------------------------------------------------------------------- |
+| style     | `StatusBarStyle` |  none   |   Yes    | The status bar theme to use for styling, can either be light, dark, default. |
 
 ```dart
 await FlutterStatusbarManager.setStyle(StatusBarStyle.DARK_CONTENT);
@@ -122,9 +123,9 @@ await FlutterStatusbarManager.setStyle(StatusBarStyle.DARK_CONTENT);
 
 The `setNetworkActivityIndicatorVisible` method will show or hide the activity indicator, On Android the method will always return a successful `Future`.
 
-| Parameter|Type|Default| Required | Description |
-| :------------|:---:|:---:|:---:|:-----|
-| visible |`bool`| none | Yes | Whether or not to show the activity indicator. |
+| Parameter |  Type  | Default | Required | Description                                    |
+| :-------- | :----: | :-----: | :------: | :--------------------------------------------- |
+| visible   | `bool` |  none   |   Yes    | Whether or not to show the activity indicator. |
 
 ```dart
 await FlutterStatusbarManager.setNetworkActivityIndicatorVisible(true);
@@ -147,10 +148,10 @@ double height = await FlutterStatusbarManager.getHeight
 
 The `setNavigationBarColor` method will set the navigation bar background color. On iOS the method will always return a successful `Future`.
 
-| Parameter|Type|Default| Required | Description |
-| :------------|:---:|:---:|:---:|:-----|
-| color |`Color`| none | Yes | The color to be set as background. |
-| animated |`bool`| false | No | Whether or not to animate the color change. |
+| Parameter |  Type   | Default | Required | Description                                 |
+| :-------- | :-----: | :-----: | :------: | :------------------------------------------ |
+| color     | `Color` |  none   |   Yes    | The color to be set as background.          |
+| animated  | `bool`  |  false  |    No    | Whether or not to animate the color change. |
 
 ```dart
 await FlutterStatusbarManager.setNavigationBarColor(Colors.green, animated:true);
@@ -161,9 +162,9 @@ await FlutterStatusbarManager.setNavigationBarColor(Colors.green, animated:true)
 
 The `setNavigationBarStyle` method will set the navigation bar theme.
 
-| Parameter|Type|Default| Required | Description |
-| :------------|:---:|:---:|:---:|:-----|
-| style |`NavigationBarStyle`| none | Yes | The navigation bar theme to use for styling, can either be light, dark, default. |
+| Parameter |         Type         | Default | Required | Description                                                                      |
+| :-------- | :------------------: | :-----: | :------: | :------------------------------------------------------------------------------- |
+| style     | `NavigationBarStyle` |  none   |   Yes    | The navigation bar theme to use for styling, can either be light, dark, default. |
 
 ```dart
 await FlutterStatusbarManager.setNavigationBarStyle(NavigationBarStyle.DARK);
@@ -174,9 +175,9 @@ await FlutterStatusbarManager.setNavigationBarStyle(NavigationBarStyle.DARK);
 
 The `setFullscreen` method will set the app in fullscreen mode.
 
-| Parameter|Type|Default| Required | Description |
-| :------------|:---:|:---:|:---:|:-----|
-| fullscreen |`bool`| none | Yes | Whether or not to set the app on fullscreen mode. |
+| Parameter  |  Type  | Default | Required | Description                                       |
+| :--------- | :----: | :-----: | :------: | :------------------------------------------------ |
+| fullscreen | `bool` |  none   |   Yes    | Whether or not to set the app on fullscreen mode. |
 
 ```dart
 await FlutterStatusbarManager.setNavigationBarStyle(NavigationBarStyle.DARK);
