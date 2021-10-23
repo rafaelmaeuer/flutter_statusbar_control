@@ -83,7 +83,7 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, ActivityAwa
     public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
         // The plugin is now attached to a new Activity after a configuration change.
         Log.d("FlutterStatusbarManager", "FlutterStatusbarManager: Reattached to Activity for Config changes");
-        activity = binding.binding.getActivity();
+        activity = binding.getActivity();
     }
 
     @Override
