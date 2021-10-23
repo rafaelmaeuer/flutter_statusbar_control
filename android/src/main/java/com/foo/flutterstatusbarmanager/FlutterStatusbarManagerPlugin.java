@@ -3,10 +3,8 @@ package com.foo.flutterstatusbarmanager;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.annotation.TargetApi;
-// import android.app.ActivityManager;
-// import android.content.Context;
-// import android.content.ContextWrapper;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
@@ -17,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
-// import io.flutter.embedding.engine.plugins.activity.ActivityAware;
-// import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -28,72 +26,119 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /**
  * FlutterStatusbarManagerPlugin
  */
-public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallHandler {
-    private Activity activity;
+public class FlutterStatusbarManagerPlugin implements FlutterPlugin, ActivityAware, MethodCallHandler {
+    private static final String channelName = "flutter_statusbar_manager";
+
     private MethodChannel channel;
+    private static Activity activity;
 
     /**
      * Plugin registration.
      */
 
-    // keep registerWith for compatibility of apps not using the v2 Android embedding
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+        // The plugin is now attached to a Flutter experience
+        Log.d("FlutterStatusbarManager", "FlutterStatusbarManager: Attached to Flutter Engine");
+        channel = new MethodChannel(binding.getBinaryMessenger(), channelName);
+        channel.setMethodCallHandler(this);
+    }
+
     public static void registerWith(Registrar registrar) {
-        MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_statusbar_manager");
+        // For compatibility of apps not using the v2 Android embedding
+        Log.d("FlutterStatusbarManager", "FlutterStatusbarManager: Registered with Compatibility");
+        activity = registrar.activity();
+        final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
         FlutterStatusbarManagerPlugin instance = new FlutterStatusbarManagerPlugin();
         channel.setMethodCallHandler(instance);
     }
 
     @Override
-    public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_statusbar_manager");
-        channel.setMethodCallHandler(this);
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+        // The plugin is no longer attached to a Flutter experience
+        Log.d("FlutterStatusbarManager", "FlutterStatusbarManager: Detached from Flutter Engine");
+        channel.setMethodCallHandler(null);
+    }
+
+    /**
+     * Activity registration.
+     */
+
+    @Override
+    public void onAttachedToActivity(ActivityPluginBinding binding) {
+        // The plugin is now attached to an Activity.
+        Log.d("FlutterStatusbarManager", "FlutterStatusbarManager: Attached to Activity");
+        activity = binding.getActivity();
     }
 
     @Override
-    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-        channel.setMethodCallHandler(null);
+    public void onDetachedFromActivityForConfigChanges() {
+        // The attached Activity was destroyed to change configuration.
+        // This call will be followed by onReattachedToActivityForConfigChanges().
+        Log.d("FlutterStatusbarManager", "FlutterStatusbarManager: Detached from Activity for Config changes");
+        activity = null;
     }
+
+    @Override
+    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
+        // The plugin is now attached to a new Activity after a configuration change.
+        Log.d("FlutterStatusbarManager", "FlutterStatusbarManager: Reattached to Activity for Config changes");
+        activity = binding.binding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivity() {
+        // The plugin is no longer associated with an Activity. Clean up references.
+        Log.d("FlutterStatusbarManager", "FlutterStatusbarManager: Detached from Activity");
+        activity = null;
+    }
+
+    /**
+     * Method handling.
+     */
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
         switch (call.method) {
-            case "getPlatformVersion":
-                result.success("Android " + android.os.Build.VERSION.RELEASE);
-                break;
-            case "setColor":
-                handleSetColor(call, result);
-                break;
-            case "setTranslucent":
-                handleSetTranslucent(call, result);
-                break;
-            case "setHidden":
-                handleSetHidden(call, result);
-                break;
-            case "setStyle":
-                handleSetStyle(call, result);
-                break;
-            case "getHeight":
-                handleGetHeight(call, result);
-                break;
-            case "setNetworkActivityIndicatorVisible":
-                result.success(true);
-                break;
-            case "setNavigationBarColor":
-                handleSetNavigationBarColor(call, result);
-                break;
-            case "setNavigationBarStyle":
-                handleSetNavigationBarStyle(call, result);
-                break;
-            default:
-                result.notImplemented();
+        case "getPlatformVersion":
+            result.success("Android " + android.os.Build.VERSION.RELEASE);
+            break;
+        case "setColor":
+            handleSetColor(call, result);
+            break;
+        case "setTranslucent":
+            handleSetTranslucent(call, result);
+            break;
+        case "setHidden":
+            handleSetHidden(call, result);
+            break;
+        case "setStyle":
+            handleSetStyle(call, result);
+            break;
+        case "getHeight":
+            handleGetHeight(call, result);
+            break;
+        case "setNetworkActivityIndicatorVisible":
+            result.success(true);
+            break;
+        case "setNavigationBarColor":
+            handleSetNavigationBarColor(call, result);
+            break;
+        case "setNavigationBarStyle":
+            handleSetNavigationBarStyle(call, result);
+            break;
+        default:
+            result.notImplemented();
         }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void handleSetColor(MethodCall call, Result result) {
         if (activity == null) {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
             return;
         }
 
@@ -107,14 +152,12 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
                 int curColor = activity.getWindow().getStatusBarColor();
                 ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), curColor, color);
 
-                colorAnimation.addUpdateListener(
-                        new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                activity.getWindow().setStatusBarColor((Integer) valueAnimator.getAnimatedValue());
-                            }
-                        }
-                );
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        activity.getWindow().setStatusBarColor((Integer) valueAnimator.getAnimatedValue());
+                    }
+                });
                 colorAnimation.setDuration(300).setStartDelay(0);
                 colorAnimation.start();
                 result.success(true);
@@ -124,16 +167,20 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
             }
 
         } else {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar color in pre lollipop android versions.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar color in pre lollipop android versions.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar color in pre lollipop android versions.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar color in pre lollipop android versions.", null);
         }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void handleSetTranslucent(MethodCall call, Result result) {
         if (activity == null) {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
             return;
         }
 
@@ -145,11 +192,8 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
                     @Override
                     public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
                         WindowInsets defaultInsets = v.onApplyWindowInsets(insets);
-                        return defaultInsets.replaceSystemWindowInsets(
-                                defaultInsets.getSystemWindowInsetLeft(),
-                                0,
-                                defaultInsets.getSystemWindowInsetRight(),
-                                defaultInsets.getSystemWindowInsetBottom());
+                        return defaultInsets.replaceSystemWindowInsets(defaultInsets.getSystemWindowInsetLeft(), 0,
+                                defaultInsets.getSystemWindowInsetRight(), defaultInsets.getSystemWindowInsetBottom());
                     }
                 });
             } else {
@@ -158,15 +202,19 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
             ViewCompat.requestApplyInsets(decorView);
             result.success(true);
         } else {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar color in pre lollipop android versions.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar color in pre lollipop android versions.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar color in pre lollipop android versions.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar color in pre lollipop android versions.", null);
         }
     }
 
     private void handleSetHidden(MethodCall call, Result result) {
         if (activity == null) {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
             return;
         }
 
@@ -184,8 +232,10 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
     @TargetApi(Build.VERSION_CODES.M)
     private void handleSetStyle(MethodCall call, Result result) {
         if (activity == null) {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
             return;
         }
 
@@ -202,8 +252,10 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
             decorView.setSystemUiVisibility(flags);
             result.success(true);
         } else {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar style in pre M android versions.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar style in pre M android versions.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar style in pre M android versions.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar style in pre M android versions.", null);
         }
     }
 
@@ -219,8 +271,10 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
     @TargetApi((Build.VERSION_CODES.LOLLIPOP))
     private void handleSetNavigationBarColor(MethodCall call, Result result) {
         if (activity == null) {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
             return;
         }
 
@@ -233,14 +287,12 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
                 int curColor = activity.getWindow().getNavigationBarColor();
                 ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), curColor, color);
 
-                colorAnimation.addUpdateListener(
-                        new ValueAnimator.AnimatorUpdateListener() {
-                            @Override
-                            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                                activity.getWindow().setNavigationBarColor((Integer) valueAnimator.getAnimatedValue());
-                            }
-                        }
-                );
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        activity.getWindow().setNavigationBarColor((Integer) valueAnimator.getAnimatedValue());
+                    }
+                });
                 colorAnimation.setDuration(300).setStartDelay(0);
                 colorAnimation.start();
                 result.success(true);
@@ -249,16 +301,20 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
                 result.success(true);
             }
         } else {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar style in pre M android versions.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar style in pre M android versions.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar style in pre M android versions.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar style in pre M android versions.", null);
         }
     }
 
     @TargetApi((Build.VERSION_CODES.O))
     private void handleSetNavigationBarStyle(MethodCall call, Result result) {
         if (activity == null) {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Ignored status bar change, current activity is null.", null);
             return;
         }
 
@@ -275,8 +331,10 @@ public class FlutterStatusbarManagerPlugin implements FlutterPlugin, MethodCallH
             decorView.setSystemUiVisibility(flags);
             result.success(true);
         } else {
-            Log.e("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar style in pre M android versions.");
-            result.error("FlutterStatusbarManager", "FlutterStatusbarManager: Can not change status bar style in pre M android versions.", null);
+            Log.e("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar style in pre M android versions.");
+            result.error("FlutterStatusbarManager",
+                    "FlutterStatusbarManager: Can not change status bar style in pre M android versions.", null);
         }
     }
 
