@@ -1,3 +1,7 @@
+## 3.1.1
+* Update deprecated UiOverlay methods
+* Refactor and improve Example App code
+
 ## 3.1.0
 * Fix Support for Android V2 Plugins
 * Rebuild Examples for iOS/Android/Web

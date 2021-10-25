@@ -17,7 +17,7 @@ void main() {
   testWidgets('test flutter_statusbar_manager example',
       (WidgetTester tester) async {
     // Build the app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(StatusBarManager());
 
     // Verify that status bar heigth is not 0
     expect(find.text('Status Bar Height: 0'), findsNothing);
@@ -32,7 +32,7 @@ void main() {
 
     // The first call is a cache miss and will queue a microtask
     SystemChrome.setApplicationSwitcherDescription(
-        ApplicationSwitcherDescription(
+        const ApplicationSwitcherDescription(
       label: '',
       primaryColor: 4278190080, // set status bar color to black
     ));

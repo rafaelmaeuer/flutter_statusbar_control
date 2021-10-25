@@ -4,21 +4,20 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(const StatusBarManager());
 
-class MyApp extends StatefulWidget {
-  MyApp();
+class StatusBarManager extends StatefulWidget {
+  const StatusBarManager({Key? key}) : super(key: key);
 
-  factory MyApp.forDesignTime() {
-    // TODO: add arguments
-    return new MyApp();
+  factory StatusBarManager.forDesignTime() {
+    return const StatusBarManager();
   }
 
   @override
-  _MyAppState createState() => new _MyAppState();
+  _StatusBarManagerState createState() => _StatusBarManagerState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _StatusBarManagerState extends State<StatusBarManager> {
   double? _statusBarHeight = 0.0;
   bool _statusBarColorAnimated = false;
   Color? _statusBarColor = Colors.black;
@@ -57,12 +56,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget renderTitle(String text) {
-    final textStyle = TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold);
+    const textStyle = TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold);
     return Text(text, style: textStyle);
   }
 
   void colorBarChanged(Color val) {
-    this.setState(() {
+    setState(() {
       _statusBarColor = val;
     });
     updateStatusBar();
@@ -75,20 +74,20 @@ class _MyAppState extends State<MyApp> {
   }
 
   void statusBarAnimationChanged(StatusBarAnimation val) {
-    this.setState(() {
+    setState(() {
       _statusBarAnimation = val;
     });
   }
 
   void statusBarStyleChanged(StatusBarStyle val) {
-    this.setState(() {
+    setState(() {
       _statusBarStyle = val;
     });
     FlutterStatusbarManager.setStyle(val);
   }
 
   void colorNavBarChanged(Color val) {
-    this.setState(() {
+    setState(() {
       _navBarColor = val;
     });
     updateNavBar();
@@ -100,7 +99,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void navigationBarStyleChanged(NavigationBarStyle val) {
-    this.setState(() {
+    setState(() {
       _navBarStyle = val;
     });
     FlutterStatusbarManager.setNavigationBarStyle(val);
@@ -108,219 +107,217 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Statusbar Manager example'),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Statusbar Manager Example'),
         ),
-        body: new Container(
-          child: new Scrollbar(
-            child: new ListView(
-              padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-              children: <Widget>[
-                renderTitle("Status Bar Height: $_statusBarHeight"),
-                Divider(height: 25.0),
-                renderTitle("Status Bar Color:"),
-                SwitchListTile(
-                  value: _statusBarColorAnimated,
-                  title: new Text("Animated:"),
-                  onChanged: (bool value) {
-                    this.setState(() {
-                      _statusBarColorAnimated = value;
-                    });
-                  },
-                ),
-                Text("Color:"),
-                RadioListTile(
-                    value: Colors.black,
-                    title: Text("Black"),
-                    onChanged: (Color? v) => colorBarChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarColor),
-                RadioListTile(
-                    value: Colors.orange,
-                    title: Text("Orange"),
-                    onChanged: (Color? v) => colorBarChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarColor),
-                RadioListTile(
-                    value: Colors.greenAccent,
-                    title: Text("Green"),
-                    onChanged: (Color? v) => colorBarChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarColor),
-                RadioListTile(
-                    value: Colors.white30,
-                    title: Text("White"),
-                    onChanged: (Color? v) => colorBarChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarColor),
-                Text("Opacity:"),
-                Slider(
-                  value: _statusBarOpacity,
-                  min: 0.0,
-                  max: 1.0,
-                  onChanged: (double val) {
-                    this.setState(() {
-                      _statusBarOpacity = val;
-                    });
-                    updateStatusBar();
-                  },
-                ),
-                Divider(height: 25.0),
-                renderTitle("Status Bar Hidden:"),
-                SwitchListTile(
-                  title: new Text("Hidden:"),
-                  value: _statusBarHidden,
-                  onChanged: (bool val) {
-                    this.setState(() {
-                      _statusBarHidden = val;
-                    });
-                    FlutterStatusbarManager.setHidden(_statusBarHidden,
-                        animation: _statusBarAnimation);
-                  },
-                ),
-                Text("Animation:"),
-                RadioListTile(
-                    value: StatusBarAnimation.NONE,
-                    title: Text("NONE"),
-                    onChanged: (StatusBarAnimation? v) =>
-                        statusBarAnimationChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarAnimation),
-                RadioListTile(
-                    value: StatusBarAnimation.FADE,
-                    title: Text("FADE"),
-                    onChanged: (StatusBarAnimation? v) =>
-                        statusBarAnimationChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarAnimation),
-                RadioListTile(
-                    value: StatusBarAnimation.SLIDE,
-                    title: Text("SLIDE"),
-                    onChanged: (StatusBarAnimation? v) =>
-                        statusBarAnimationChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarAnimation),
-                Divider(height: 25.0),
-                renderTitle("Status Bar Style:"),
-                RadioListTile(
-                    value: StatusBarStyle.DEFAULT,
-                    title: Text("DEFAULT"),
-                    onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarStyle),
-                RadioListTile(
-                    value: StatusBarStyle.LIGHT_CONTENT,
-                    title: Text("LIGHT_CONTENT"),
-                    onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarStyle),
-                RadioListTile(
-                    value: StatusBarStyle.DARK_CONTENT,
-                    title: Text("DARK_CONTENT"),
-                    onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
-                    dense: true,
-                    groupValue: _statusBarStyle),
-                Divider(height: 25.0),
-                renderTitle("Status Bar Translucent:"),
-                SwitchListTile(
-                  title: new Text("Translucent:"),
-                  value: _statusBarTranslucent,
-                  onChanged: (bool val) {
-                    this.setState(() {
-                      _statusBarTranslucent = val;
-                    });
-                    FlutterStatusbarManager.setTranslucent(
-                        _statusBarTranslucent);
-                  },
-                ),
-                Divider(height: 25.0),
-                renderTitle("Status Bar Activity Indicator:"),
-                SwitchListTile(
-                  title: new Text("Indicator:"),
-                  value: _loadingIndicator,
-                  onChanged: (bool val) {
-                    this.setState(() {
-                      _loadingIndicator = val;
-                    });
-                    FlutterStatusbarManager.setNetworkActivityIndicatorVisible(
-                        _loadingIndicator);
-                  },
-                ),
-                Divider(height: 25.0),
-                renderTitle("Navigation Bar Color:"),
-                SwitchListTile(
-                  value: _navBarColorAnimated,
-                  title: new Text("Animated:"),
-                  onChanged: (bool value) {
-                    this.setState(() {
-                      _navBarColorAnimated = value;
-                    });
-                  },
-                ),
-                Text("Color:"),
-                RadioListTile(
-                    value: Colors.black,
-                    title: Text("Black"),
-                    onChanged: (Color? v) => colorNavBarChanged(v!),
-                    dense: true,
-                    groupValue: _navBarColor),
-                RadioListTile(
-                    value: Colors.orange,
-                    title: Text("Orange"),
-                    onChanged: (Color? v) => colorNavBarChanged(v!),
-                    dense: true,
-                    groupValue: _navBarColor),
-                RadioListTile(
-                    value: Colors.greenAccent,
-                    title: Text("Green"),
-                    onChanged: (Color? v) => colorNavBarChanged(v!),
-                    dense: true,
-                    groupValue: _navBarColor),
-                RadioListTile(
-                    value: Colors.white12,
-                    title: Text("white"),
-                    onChanged: (Color? v) => colorNavBarChanged(v!),
-                    dense: true,
-                    groupValue: _navBarColor),
-                Divider(height: 25.0),
-                renderTitle("Navigation Bar Style:"),
-                RadioListTile(
-                    value: NavigationBarStyle.DEFAULT,
-                    title: Text("DEFAULT"),
-                    onChanged: (NavigationBarStyle? v) =>
-                        navigationBarStyleChanged(v!),
-                    dense: true,
-                    groupValue: _navBarStyle),
-                RadioListTile(
-                    value: NavigationBarStyle.LIGHT,
-                    title: Text("LIGHT"),
-                    onChanged: (NavigationBarStyle? v) =>
-                        navigationBarStyleChanged(v!),
-                    dense: true,
-                    groupValue: _navBarStyle),
-                RadioListTile(
-                    value: NavigationBarStyle.DARK,
-                    title: Text("DARK"),
-                    onChanged: (NavigationBarStyle? v) =>
-                        navigationBarStyleChanged(v!),
-                    dense: true,
-                    groupValue: _navBarStyle),
-                Divider(height: 25.0),
-                renderTitle("Fullscreen mode:"),
-                SwitchListTile(
-                  title: new Text("Fullscreen:"),
-                  value: _fullscreenMode,
-                  onChanged: (bool val) {
-                    this.setState(() {
-                      _fullscreenMode = val;
-                    });
-                    FlutterStatusbarManager.setFullscreen(_fullscreenMode);
-                  },
-                ),
-              ],
-            ),
+        body: Scrollbar(
+          child: ListView(
+            padding:
+                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+            children: <Widget>[
+              renderTitle("Status Bar Height: $_statusBarHeight"),
+              const Divider(height: 25.0),
+              renderTitle("Status Bar Color (Android):"),
+              SwitchListTile(
+                value: _statusBarColorAnimated,
+                title: const Text("Animated:"),
+                onChanged: (bool value) {
+                  setState(() {
+                    _statusBarColorAnimated = value;
+                  });
+                },
+              ),
+              const Text("Color:"),
+              RadioListTile(
+                  value: Colors.black,
+                  title: const Text("Black"),
+                  onChanged: (Color? v) => colorBarChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarColor),
+              RadioListTile(
+                  value: Colors.orange,
+                  title: const Text("Orange"),
+                  onChanged: (Color? v) => colorBarChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarColor),
+              RadioListTile(
+                  value: Colors.greenAccent,
+                  title: const Text("Green"),
+                  onChanged: (Color? v) => colorBarChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarColor),
+              RadioListTile(
+                  value: Colors.white30,
+                  title: const Text("White"),
+                  onChanged: (Color? v) => colorBarChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarColor),
+              const Text("Opacity:"),
+              Slider(
+                value: _statusBarOpacity,
+                min: 0.0,
+                max: 1.0,
+                onChanged: (double val) {
+                  setState(() {
+                    _statusBarOpacity = val;
+                  });
+                  updateStatusBar();
+                },
+              ),
+              const Divider(height: 25.0),
+              renderTitle("Status Bar Hidden:"),
+              SwitchListTile(
+                title: const Text("Hidden:"),
+                value: _statusBarHidden,
+                onChanged: (bool val) {
+                  setState(() {
+                    _statusBarHidden = val;
+                  });
+                  FlutterStatusbarManager.setHidden(_statusBarHidden,
+                      animation: _statusBarAnimation);
+                },
+              ),
+              const Text("Animation (iOS):"),
+              RadioListTile(
+                  value: StatusBarAnimation.NONE,
+                  title: const Text("NONE"),
+                  onChanged: (StatusBarAnimation? v) =>
+                      statusBarAnimationChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarAnimation),
+              RadioListTile(
+                  value: StatusBarAnimation.FADE,
+                  title: const Text("FADE"),
+                  onChanged: (StatusBarAnimation? v) =>
+                      statusBarAnimationChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarAnimation),
+              RadioListTile(
+                  value: StatusBarAnimation.SLIDE,
+                  title: const Text("SLIDE"),
+                  onChanged: (StatusBarAnimation? v) =>
+                      statusBarAnimationChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarAnimation),
+              const Divider(height: 25.0),
+              renderTitle("Status Bar Style:"),
+              RadioListTile(
+                  value: StatusBarStyle.DEFAULT,
+                  title: const Text("DEFAULT"),
+                  onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarStyle),
+              RadioListTile(
+                  value: StatusBarStyle.LIGHT_CONTENT,
+                  title: const Text("LIGHT_CONTENT"),
+                  onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarStyle),
+              RadioListTile(
+                  value: StatusBarStyle.DARK_CONTENT,
+                  title: const Text("DARK_CONTENT"),
+                  onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
+                  dense: true,
+                  groupValue: _statusBarStyle),
+              const Divider(height: 25.0),
+              renderTitle("Status Bar Translucent (Android):"),
+              SwitchListTile(
+                title: const Text("Translucent:"),
+                value: _statusBarTranslucent,
+                onChanged: (bool val) {
+                  setState(() {
+                    _statusBarTranslucent = val;
+                  });
+                  FlutterStatusbarManager.setTranslucent(_statusBarTranslucent);
+                },
+              ),
+              const Divider(height: 25.0),
+              renderTitle("Status Bar Activity Indicator (iOS):"),
+              SwitchListTile(
+                title: const Text("Indicator:"),
+                value: _loadingIndicator,
+                onChanged: (bool val) {
+                  setState(() {
+                    _loadingIndicator = val;
+                  });
+                  FlutterStatusbarManager.setNetworkActivityIndicatorVisible(
+                      _loadingIndicator);
+                },
+              ),
+              const Divider(height: 25.0),
+              renderTitle("Navigation Bar Color (Android):"),
+              SwitchListTile(
+                value: _navBarColorAnimated,
+                title: const Text("Animated:"),
+                onChanged: (bool value) {
+                  setState(() {
+                    _navBarColorAnimated = value;
+                  });
+                },
+              ),
+              const Text("Color:"),
+              RadioListTile(
+                  value: Colors.black,
+                  title: const Text("Black"),
+                  onChanged: (Color? v) => colorNavBarChanged(v!),
+                  dense: true,
+                  groupValue: _navBarColor),
+              RadioListTile(
+                  value: Colors.orange,
+                  title: const Text("Orange"),
+                  onChanged: (Color? v) => colorNavBarChanged(v!),
+                  dense: true,
+                  groupValue: _navBarColor),
+              RadioListTile(
+                  value: Colors.greenAccent,
+                  title: const Text("Green"),
+                  onChanged: (Color? v) => colorNavBarChanged(v!),
+                  dense: true,
+                  groupValue: _navBarColor),
+              RadioListTile(
+                  value: Colors.white12,
+                  title: const Text("white"),
+                  onChanged: (Color? v) => colorNavBarChanged(v!),
+                  dense: true,
+                  groupValue: _navBarColor),
+              const Divider(height: 25.0),
+              renderTitle("Navigation Bar Style (Android):"),
+              RadioListTile(
+                  value: NavigationBarStyle.DEFAULT,
+                  title: const Text("DEFAULT"),
+                  onChanged: (NavigationBarStyle? v) =>
+                      navigationBarStyleChanged(v!),
+                  dense: true,
+                  groupValue: _navBarStyle),
+              RadioListTile(
+                  value: NavigationBarStyle.LIGHT,
+                  title: const Text("LIGHT"),
+                  onChanged: (NavigationBarStyle? v) =>
+                      navigationBarStyleChanged(v!),
+                  dense: true,
+                  groupValue: _navBarStyle),
+              RadioListTile(
+                  value: NavigationBarStyle.DARK,
+                  title: const Text("DARK"),
+                  onChanged: (NavigationBarStyle? v) =>
+                      navigationBarStyleChanged(v!),
+                  dense: true,
+                  groupValue: _navBarStyle),
+              const Divider(height: 25.0),
+              renderTitle("Fullscreen mode:"),
+              SwitchListTile(
+                title: const Text("Fullscreen:"),
+                value: _fullscreenMode,
+                onChanged: (bool val) {
+                  setState(() {
+                    _fullscreenMode = val;
+                  });
+                  FlutterStatusbarManager.setFullscreen(_fullscreenMode);
+                },
+              ),
+            ],
           ),
         ),
       ),
