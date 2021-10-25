@@ -7,24 +7,81 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/services.dart';
 
-import 'package:example/main.dart';
+import 'package:flutter_statusbar_manager_example/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  TestWidgetsFlutterBinding.ensureInitialized();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('test flutter_statusbar_manager example',
+      (WidgetTester tester) async {
+    // Build the app and trigger a frame.
+    await tester.pumpWidget(MyApp());
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // Verify that status bar heigth is not 0
+    expect(find.text('Status Bar Height: 0'), findsNothing);
+
+    // Prepare log to read results from
+    final List<MethodCall> log = <MethodCall>[];
+    TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform,
+            (MethodCall methodCall) async {
+      log.add(methodCall);
+    });
+
+    // The first call is a cache miss and will queue a microtask
+    SystemChrome.setApplicationSwitcherDescription(
+        ApplicationSwitcherDescription(
+      label: '',
+      primaryColor: 4278190080, // set status bar color to black
+    ));
+    expect(tester.binding.microtaskCount, equals(1));
+
+    // Flush all microtasks
+    await tester.idle();
+    print(log);
+
+    // Verify result lenght and content
+    expect(log, hasLength(1));
+    expect(
+        log.single,
+        isMethodCall(
+          'SystemChrome.setApplicationSwitcherDescription',
+          arguments: <String, dynamic>{
+            'label': '',
+            'primaryColor': 4278190080, // check status bar color is black
+          },
+        ));
+
+    // Clear Log
+    log.clear();
+    expect(tester.binding.microtaskCount, equals(0));
+    expect(log.isEmpty, isTrue);
+
+    // Tap the 'hidden' toggle and trigger a frame.
+    await tester.tap(find.widgetWithText(SwitchListTile, "Hidden:"));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Flush all microtasks
+    await tester.idle();
+    print(log);
+
+    // Verify result lenght and content
+    expect(log, hasLength(2));
+    expect(
+        log.last,
+        isMethodCall(
+          'SystemChrome.setApplicationSwitcherDescription',
+          arguments: <String, dynamic>{
+            'label': '',
+            'primaryColor': 4280391411, // check status bar color is bg blue
+          },
+        ));
+
+    // Clear Log
+    log.clear();
+    expect(tester.binding.microtaskCount, equals(0));
+    expect(log.isEmpty, isTrue);
   });
 }
