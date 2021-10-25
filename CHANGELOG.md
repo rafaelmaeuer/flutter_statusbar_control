@@ -1,19 +1,23 @@
+## 3.1.0
+* Fix Support for Android V2 Plugins
+* Rebuild Examples for iOS/Android/Web
+
 ## 3.0.2
-* Fix Support for Android V2
-* Thanks to https://github.com/jWinterDay
+* Fix Build for Android V2
+* Thanks to [jWinterDay](https://github.com/jWinterDay)
 
 ## 3.0.1
 * Fix MissingPluginException for flutter web
-* Thanks to https://github.com/rafaelmaeuer
+* Thanks to [rafaelmaeuer](https://github.com/rafaelmaeuer)
 
 ## 3.0.0
 * Added support for null safety
-* Thanks to https://github.com/NarHakobyan
+* Thanks to [NarHakobyan](https://github.com/NarHakobyan)
 
 ## 2.0.0
 * Fix android X
 * Fix iOS Dark mode styles
-* Thanks to https://github.com/lorenzOliveto
+* Thanks to [lorenzOliveto](https://github.com/lorenzOliveto)
 
 ## 1.0.2
 * Fix android project issues

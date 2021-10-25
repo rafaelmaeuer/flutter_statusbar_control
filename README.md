@@ -1,6 +1,6 @@
 # flutter_statusbar_manager
 
-Now with support for Android V2 thanks to [jWinterDay](https://github.com/jWinterDay) (v3.0.2)  
+Now with support for Android V2 thanks to [jWinterDay](https://github.com/jWinterDay) and [rafaelmaeuer](https://github.com/rafaelmaeuer) (v3.1.0)  
 Now compatible with flutter web thanks to [rafaelmaeuer](https://github.com/rafaelmaeuer) (v3.0.1)  
 Now with support for null safety thanks to [NarHakobyan](https://github.com/NarHakobyan) (v3.0.0)  
 Now compatible with AndroidX thanks to [lorenzOliveto](https://github.com/lorenzOliveto) (v2.0.0)
