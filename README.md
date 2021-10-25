@@ -37,10 +37,9 @@ The Navigation Bar code was taken from the awesome [flutter-screen-theme-plugin]
 ## Installation
 
 ```bash
-flutter_statusbar_manager: 
+flutter_statusbar_manager:
   git:
-    url: https://github.com/rafaelmaeuer/flutter_statusbar_manager
-    ref: master
+    url: https://github.com/rafaelmaeuer/flutter_statusbar_manager.git
 ```
 
 to your pubspec.yaml ,and run
