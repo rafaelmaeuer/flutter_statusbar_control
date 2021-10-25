@@ -1,0 +1,23 @@
+name: Flutter_Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛬 Checkout the code
+        uses: actions/checkout@v2.3.5
+      - name: 🚚 Setup Flutter and version
+        uses: subosito/flutter-action@v1.5.3
+        with:
+          flutter-version: "2.5.3"
+      - name: 📦 Install packages
+        run: flutter pub get
+      - name: 🧾 Run tests
+        run: cd example && flutter test
