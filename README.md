@@ -61,7 +61,7 @@ flutter create myapp
 
 On iOS add the following in your `Info.plist` (if not already present):
 
-```plist
+```xml
 <key>UIViewControllerBasedStatusBarAppearance</key>
 <false/>
 ```
