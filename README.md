@@ -4,6 +4,7 @@ As [FooStudio/flutter_statusbar_manager](https://github.com/FooStudio/flutter_st
 
 ### Latest Fixes
 
+- v3.1.2 add `cutout`-mode for android and `SafeArea` to demo app
 - v3.1.1 resolve `UIOverlay`-deprecations and update of demo app
 - v3.1.0 support for Android V2 thanks to [jWinterDay](https://github.com/jWinterDay) and [rafaelmaeuer](https://github.com/rafaelmaeuer)
 - v3.0.1 compatible with flutter web thanks to [rafaelmaeuer](https://github.com/rafaelmaeuer)

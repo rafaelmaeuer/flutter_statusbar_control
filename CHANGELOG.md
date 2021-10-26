@@ -1,3 +1,8 @@
+## 3.1.2
+
+- Add SafeArea to Example App
+- Add cutout mode for Android
+
 ## 3.1.1
 
 - Update deprecated UiOverlay methods
