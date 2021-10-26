@@ -2,8 +2,9 @@
 
 As [FooStudio/flutter_statusbar_manager](https://github.com/FooStudio/flutter_statusbar_manager) doesn't seem to be maintained anymore, this fork will keep some further development as I want to continue using this dependencies in some projects.
 
-### Latest Fixes
+### Updates
 
+- v3.1.2 add `cutout`-mode for android and `SafeArea` to demo app
 - v3.1.1 resolve `UIOverlay`-deprecations and update of demo app
 - v3.1.0 support for Android V2 thanks to [jWinterDay](https://github.com/jWinterDay) and [rafaelmaeuer](https://github.com/rafaelmaeuer)
 - v3.0.1 compatible with flutter web thanks to [rafaelmaeuer](https://github.com/rafaelmaeuer)
@@ -58,14 +59,20 @@ Create a new project with command
 flutter create myapp
 ```
 
-On iOS add the following in your Info.plist:
+On iOS add the following in your `Info.plist` (if not already present):
 
-```xml
+```plist
 <key>UIViewControllerBasedStatusBarAppearance</key>
 <false/>
 ```
 
-Import the plugin in lib/main.dart like this:
+On Android add the following in your `styles.xml` (cutout-mode for API >27):
+
+```xml
+<item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
+```
+
+Import the plugin in `lib/main.dart` like this:
 
 ```dart
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
