@@ -108,11 +108,12 @@ class _StatusBarManagerState extends State<StatusBarManager> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Statusbar Manager Example'),
-        ),
-        body: Scrollbar(
+        home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Statusbar Manager Example'),
+      ),
+      body: SafeArea(
+        child: Scrollbar(
           child: ListView(
             padding:
                 const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
@@ -321,6 +322,6 @@ class _StatusBarManagerState extends State<StatusBarManager> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
