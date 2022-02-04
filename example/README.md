@@ -1,4 +1,4 @@
-# flutter_statusbar_manager_example
+# Statusbar Manager Example
 
 Demonstrates how to use the flutter_statusbar_manager plugin.
 

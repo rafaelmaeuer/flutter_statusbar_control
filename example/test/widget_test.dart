@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutter_statusbar_manager_example/main.dart';
+import 'package:statusbar_manager_example/main.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

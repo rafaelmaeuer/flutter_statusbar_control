@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:statusbar_manager/flutter_statusbar_manager.dart';
 
 void main() => runApp(const StatusBarManager());
 

@@ -1,9 +1,10 @@
-# flutter_statusbar_manager
+# Flutter Statusbar Manager
 
 As [FooStudio/flutter_statusbar_manager](https://github.com/FooStudio/flutter_statusbar_manager) doesn't seem to be maintained anymore, this fork will keep some further development as I want to continue using this dependencies in some projects.
 
 ### Updates
 
+- v3.2.0 rename to `statusbar_manager` and re-publish to pub.dev
 - v3.1.2 add `cutout`-mode for android and `SafeArea` to demo app
 - v3.1.1 resolve `UIOverlay`-deprecations and update of demo app
 - v3.1.0 support for Android V2 thanks to [jWinterDay](https://github.com/jWinterDay) and [rafaelmaeuer](https://github.com/rafaelmaeuer)
@@ -38,9 +39,7 @@ The Navigation Bar code was taken from the awesome [flutter-screen-theme-plugin]
 ## Installation
 
 ```bash
-flutter_statusbar_manager:
-  git:
-    url: https://github.com/rafaelmaeuer/flutter_statusbar_manager.git
+statusbar_manager: ^3.2.0
 ```
 
 to your pubspec.yaml ,and run
@@ -75,7 +74,7 @@ On Android add the following in your `styles.xml` (cutout-mode for API >27):
 Import the plugin in `lib/main.dart` like this:
 
 ```dart
-import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:statusbar_manager/flutter_statusbar_manager.dart';
 ```
 
 ## Methods

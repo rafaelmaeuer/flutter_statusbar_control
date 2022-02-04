@@ -1,4 +1,4 @@
-name: flutter_statusbar_manager_example
+name: statusbar_manager_example
 description: Demonstrates how to use the flutter_statusbar_manager plugin.
 
 # The following line prevents the package from being accidentally published to
@@ -38,7 +38,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_statusbar_manager:
+  statusbar_manager:
     path: ../
 
   # The "flutter_lints" package below contains a set of recommended lints to

@@ -1,3 +1,9 @@
+## 3.2.0
+
+- Rename to statusbar_manager
+- Update android example app
+- Publish package to pub.dev
+
 ## 3.1.2
 
 - Add SafeArea to Example App
