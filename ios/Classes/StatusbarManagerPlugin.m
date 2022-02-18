@@ -1,10 +1,10 @@
-#import "FlutterStatusbarManagerPlugin.h"
+#import "StatusbarManagerPlugin.h"
 
-@implementation FlutterStatusbarManagerPlugin
+@implementation StatusbarManagerPlugin
 
 + (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
-    FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:@"flutter_statusbar_manager" binaryMessenger:[registrar messenger]];
-    FlutterStatusbarManagerPlugin *instance = [[FlutterStatusbarManagerPlugin alloc] init];
+    FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:@"statusbar_manager" binaryMessenger:[registrar messenger]];
+    StatusbarManagerPlugin *instance = [[StatusbarManagerPlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:channel];
 }
 

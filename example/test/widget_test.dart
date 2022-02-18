@@ -14,7 +14,7 @@ import 'package:statusbar_manager_example/main.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('test flutter_statusbar_manager example',
+  testWidgets('test statusbar_manager example',
       (WidgetTester tester) async {
     // Build the app and trigger a frame.
     await tester.pumpWidget(StatusBarManager());

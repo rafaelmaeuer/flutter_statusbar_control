@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.foo.flutterstatusbarmanager.example">
+    package="com.foo.statusbarmanager.example">
    <application
         android:label="StatusBar"
         android:icon="@mipmap/ic_launcher">

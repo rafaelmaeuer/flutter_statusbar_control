@@ -19,7 +19,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.foo.flutterstatusbarmanager
-        pluginClass: FlutterStatusbarManagerPlugin
+        package: com.foo.statusbarmanager
+        pluginClass: StatusbarManagerPlugin
       ios:
-        pluginClass: FlutterStatusbarManagerPlugin
+        pluginClass: StatusbarManagerPlugin
