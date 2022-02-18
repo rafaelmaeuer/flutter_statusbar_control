@@ -1,18 +1,18 @@
 # Flutter Statusbar Manager
 
-As [FooStudio/flutter_statusbar_manager](https://github.com/FooStudio/flutter_statusbar_manager) doesn't seem to be maintained anymore, this fork will keep some further development as I want to continue using this dependencies in some projects.
+As [FooStudio/flutter_statusbar_manager](https://github.com/FooStudio/flutter_statusbar_manager) isn't maintained anymore, this package will keep some further development to continue using this dependency in some projects.
 
 ### Updates
 
 - v3.2.0 rename to `statusbar_manager` and re-publish to pub.dev
-- v3.1.2 add `cutout`-mode for android and `SafeArea` to demo app
+- v3.1.2 add `cutout`-mode for Android and `SafeArea` to demo app
 - v3.1.1 resolve `UIOverlay`-deprecations and update of demo app
 - v3.1.0 support for Android V2 thanks to [jWinterDay](https://github.com/jWinterDay) and [rafaelmaeuer](https://github.com/rafaelmaeuer)
 - v3.0.1 compatible with flutter web thanks to [rafaelmaeuer](https://github.com/rafaelmaeuer)
 - v3.0.0 support for null safety thanks to [NarHakobyan](https://github.com/NarHakobyan)
 - v2.0.0 compatible with AndroidX thanks to [lorenzOliveto](https://github.com/lorenzOliveto)
 
-Find a complete list of changes in [CHANGELOG](CHANGELOG.md), tested lately with iOS15 and Android API 30.
+Find a complete list of changes in [CHANGELOG](CHANGELOG.md), tested lately with iOS 15 and Android API 31.
 
 ### About
 
@@ -42,7 +42,7 @@ The Navigation Bar code was taken from the awesome [flutter-screen-theme-plugin]
 statusbar_manager: ^3.2.0
 ```
 
-to your pubspec.yaml ,and run
+to your `pubspec.yaml` and run
 
 ```bash
 flutter packages get
