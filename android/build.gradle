@@ -1,4 +1,4 @@
-group 'com.foo.flutterstatusbarmanager'
+group 'com.foo.statusbarmanager'
 version '1.0-SNAPSHOT'
 
 buildscript {

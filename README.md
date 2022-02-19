@@ -1,10 +1,10 @@
-# Flutter Statusbar Manager
+# Status Bar Manager
 
-As [FooStudio/flutter_statusbar_manager](https://github.com/FooStudio/flutter_statusbar_manager) isn't maintained anymore, this package will keep some further development to continue using this dependency in some projects.
+Since [flutter_statusbar_manager](https://pub.dev/packages/flutter_statusbar_manager) is no longer maintained, this package will be further developed for continued use in projects.
 
 ### Updates
 
-- v3.2.0 rename to `statusbar_manager` and re-publish to pub.dev
+- v3.2.0 rename to `status_bar_manager` and re-publish to pub.dev
 - v3.1.2 add `cutout`-mode for Android and `SafeArea` to demo app
 - v3.1.1 resolve `UIOverlay`-deprecations and update of demo app
 - v3.1.0 support for Android V2 thanks to [jWinterDay](https://github.com/jWinterDay) and [rafaelmaeuer](https://github.com/rafaelmaeuer)
@@ -39,13 +39,13 @@ The Navigation Bar code was taken from the awesome [flutter-screen-theme-plugin]
 ## Installation
 
 ```bash
-statusbar_manager: ^3.2.0
+status_bar_manager: ^3.2.0
 ```
 
 to your `pubspec.yaml` and run
 
 ```bash
-flutter packages get
+flutter pub get
 ```
 
 in your project's root directory.
@@ -74,7 +74,7 @@ On Android add the following in your `styles.xml` (cutout-mode for API >27):
 Import the plugin in `lib/main.dart` like this:
 
 ```dart
-import 'package:statusbar_manager/statusbar_manager.dart';
+import 'package:status_bar_manager/status_bar_manager.dart';
 ```
 
 ## Methods
@@ -90,7 +90,7 @@ The `setColor` method will set the status bar background color. On iOS the metho
 | animated  | `bool`  |  false  |    No    | Whether or not to animate the color change.                     |
 
 ```dart
-await StatusbarManager.setColor(Colors.green, animated:true);
+await StatusBarManager.setColor(Colors.green, animated:true);
 ```
 
 #### setTranslucent
@@ -103,7 +103,7 @@ The `setTranslucent` method will set the status bar translucent status. On iOS t
 | translucent | `bool` |  none   |   Yes    | Whether or not the status bar will be translucent. |
 
 ```dart
-await StatusbarManager.setTranslucent(true);
+await StatusBarManager.setTranslucent(true);
 ```
 
 #### setHidden
@@ -117,7 +117,7 @@ The `setHidden` will hide the status bar.
 | animation | `StatusBarAnimation` | StatusBarAnimation.NONE |    No    | The hiding animation to use `(iOS only)`. |
 
 ```dart
-await StatusbarManager.setHidden(true, animation:StatusBarAnimation.SLIDE);
+await StatusBarManager.setHidden(true, animation:StatusBarAnimation.SLIDE);
 ```
 
 #### setStyle
@@ -130,7 +130,7 @@ The `setStyle` method will set the status bar theme.
 | style     | `StatusBarStyle` |  none   |   Yes    | The status bar theme to use for styling, can either be light, dark, default. |
 
 ```dart
-await StatusbarManager.setStyle(StatusBarStyle.DARK_CONTENT);
+await StatusBarManager.setStyle(StatusBarStyle.DARK_CONTENT);
 ```
 
 #### setNetworkActivityIndicatorVisible
@@ -143,7 +143,7 @@ The `setNetworkActivityIndicatorVisible` method will show or hide the activity i
 | visible   | `bool` |  none   |   Yes    | Whether or not to show the activity indicator. |
 
 ```dart
-await StatusbarManager.setNetworkActivityIndicatorVisible(true);
+await StatusBarManager.setNetworkActivityIndicatorVisible(true);
 ```
 
 #### getHeight
@@ -152,7 +152,7 @@ await StatusbarManager.setNetworkActivityIndicatorVisible(true);
 The `getHeight` getter method will return the height of the status bar.
 
 ```dart
-double height = await StatusbarManager.getHeight
+double height = await StatusBarManager.getHeight
 ```
 
 ## Bonus Methods
@@ -168,7 +168,7 @@ The `setNavigationBarColor` method will set the navigation bar background color.
 | animated  | `bool`  |  false  |    No    | Whether or not to animate the color change. |
 
 ```dart
-await StatusbarManager.setNavigationBarColor(Colors.green, animated:true);
+await StatusBarManager.setNavigationBarColor(Colors.green, animated:true);
 ```
 
 #### setNavigationBarStyle
@@ -181,7 +181,7 @@ The `setNavigationBarStyle` method will set the navigation bar theme.
 | style     | `NavigationBarStyle` |  none   |   Yes    | The navigation bar theme to use for styling, can either be light, dark, default. |
 
 ```dart
-await StatusbarManager.setNavigationBarStyle(NavigationBarStyle.DARK);
+await StatusBarManager.setNavigationBarStyle(NavigationBarStyle.DARK);
 ```
 
 #### setFullscreen
@@ -194,7 +194,7 @@ The `setFullscreen` method will set the app in fullscreen mode.
 | fullscreen | `bool` |  none   |   Yes    | Whether or not to set the app on fullscreen mode. |
 
 ```dart
-await StatusbarManager.setNavigationBarStyle(NavigationBarStyle.DARK);
+await StatusBarManager.setNavigationBarStyle(NavigationBarStyle.DARK);
 ```
 
 ## Enums

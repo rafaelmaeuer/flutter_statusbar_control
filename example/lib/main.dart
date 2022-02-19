@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:statusbar_manager/statusbar_manager.dart';
+import 'package:status_bar_manager/status_bar_manager.dart';
 
-void main() => runApp(const StatusBarManager());
+void main() => runApp(const StatusBarManagerApp());
 
-class StatusBarManager extends StatefulWidget {
-  const StatusBarManager({Key? key}) : super(key: key);
+class StatusBarManagerApp extends StatefulWidget {
+  const StatusBarManagerApp({Key? key}) : super(key: key);
 
-  factory StatusBarManager.forDesignTime() {
-    return const StatusBarManager();
+  factory StatusBarManagerApp.forDesignTime() {
+    return const StatusBarManagerApp();
   }
 
   @override
-  _StatusBarManagerState createState() => _StatusBarManagerState();
+  _StatusBarManagerAppState createState() => _StatusBarManagerAppState();
 }
 
-class _StatusBarManagerState extends State<StatusBarManager> {
+class _StatusBarManagerAppState extends State<StatusBarManagerApp> {
   double? _statusBarHeight = 0.0;
   bool _statusBarColorAnimated = false;
   Color? _statusBarColor = Colors.black;
@@ -44,7 +44,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
     double? statusBarHeight;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      statusBarHeight = await StatusbarManager.getHeight;
+      statusBarHeight = await StatusBarManager.getHeight;
     } on PlatformException {
       statusBarHeight = 0.0;
     }
@@ -68,7 +68,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
   }
 
   void updateStatusBar() {
-    StatusbarManager.setColor(
+    StatusBarManager.setColor(
         _statusBarColor!.withOpacity(_statusBarOpacity),
         animated: _statusBarColorAnimated);
   }
@@ -83,7 +83,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
     setState(() {
       _statusBarStyle = val;
     });
-    StatusbarManager.setStyle(val);
+    StatusBarManager.setStyle(val);
   }
 
   void colorNavBarChanged(Color val) {
@@ -94,7 +94,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
   }
 
   void updateNavBar() {
-    StatusbarManager.setNavigationBarColor(_navBarColor!,
+    StatusBarManager.setNavigationBarColor(_navBarColor!,
         animated: _navBarColorAnimated);
   }
 
@@ -102,7 +102,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
     setState(() {
       _navBarStyle = val;
     });
-    StatusbarManager.setNavigationBarStyle(val);
+    StatusBarManager.setNavigationBarStyle(val);
   }
 
   @override
@@ -176,7 +176,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
                   setState(() {
                     _statusBarHidden = val;
                   });
-                  StatusbarManager.setHidden(_statusBarHidden,
+                  StatusBarManager.setHidden(_statusBarHidden,
                       animation: _statusBarAnimation);
                 },
               ),
@@ -231,7 +231,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
                   setState(() {
                     _statusBarTranslucent = val;
                   });
-                  StatusbarManager.setTranslucent(_statusBarTranslucent);
+                  StatusBarManager.setTranslucent(_statusBarTranslucent);
                 },
               ),
               const Divider(height: 25.0),
@@ -243,7 +243,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
                   setState(() {
                     _loadingIndicator = val;
                   });
-                  StatusbarManager.setNetworkActivityIndicatorVisible(
+                  StatusBarManager.setNetworkActivityIndicatorVisible(
                       _loadingIndicator);
                 },
               ),
@@ -315,7 +315,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
                   setState(() {
                     _fullscreenMode = val;
                   });
-                  StatusbarManager.setFullscreen(_fullscreenMode);
+                  StatusBarManager.setFullscreen(_fullscreenMode);
                 },
               ),
             ],
