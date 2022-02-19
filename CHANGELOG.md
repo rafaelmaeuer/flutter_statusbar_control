@@ -4,6 +4,12 @@
 - Re-publish package to pub.dev
 - Update android example app
 
+## 3.1.3
+
+- Update gradle/wrapper versions
+- Update github actions
+- Add dependabot
+
 ## 3.1.2
 
 - Add SafeArea to Example App
