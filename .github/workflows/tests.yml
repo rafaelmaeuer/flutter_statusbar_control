@@ -2,9 +2,12 @@ name: Flutter_Tests
 
 on:
   push:
-    branches: [master]
+    branches:
+      - dev/*
+      - master
   pull_request:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
   tests:
@@ -12,11 +15,11 @@ jobs:
 
     steps:
       - name: 🛬 Checkout the code
-        uses: actions/checkout@v2.3.5
+        uses: actions/checkout@v2.4.0
       - name: 🚚 Setup Flutter and version
-        uses: subosito/flutter-action@v1.5.3
+        uses: subosito/flutter-action@v2.3.0
         with:
-          flutter-version: "2.5.3"
+          flutter-version: "2.10.2"
       - name: 📦 Install packages
         run: flutter pub get
       - name: 🧾 Run tests
