@@ -1,5 +1,7 @@
 # Status Bar Manager
 
+[![Flutter_Tests](https://github.com/rafaelmaeuer/flutter_statusbar_manager/actions/workflows/tests.yml/badge.svg)](https://github.com/rafaelmaeuer/flutter_statusbar_manager/actions/workflows/tests.yml)
+
 Since [flutter_statusbar_manager](https://pub.dev/packages/flutter_statusbar_manager) is no longer maintained, this package will be further developed for continued use in projects.
 
 ### Updates
