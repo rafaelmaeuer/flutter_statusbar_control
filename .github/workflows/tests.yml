@@ -1,6 +1,7 @@
 name: Flutter_Tests
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - dev/*
