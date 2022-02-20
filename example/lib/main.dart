@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:status_bar_control/status_bar_control.dart';
 
-void main() => runApp(const StatusBarManager());
+void main() => runApp(const StatusBarControlApp());
 
-class StatusBarManager extends StatefulWidget {
-  const StatusBarManager({Key? key}) : super(key: key);
+class StatusBarControlApp extends StatefulWidget {
+  const StatusBarControlApp({Key? key}) : super(key: key);
 
-  factory StatusBarManager.forDesignTime() {
-    return const StatusBarManager();
+  factory StatusBarControlApp.forDesignTime() {
+    return const StatusBarControlApp();
   }
 
   @override
-  _StatusBarManagerState createState() => _StatusBarManagerState();
+  _StatusBarControlAppState createState() => _StatusBarControlAppState();
 }
 
-class _StatusBarManagerState extends State<StatusBarManager> {
+class _StatusBarControlAppState extends State<StatusBarControlApp> {
   double? _statusBarHeight = 0.0;
   bool _statusBarColorAnimated = false;
   Color? _statusBarColor = Colors.black;
@@ -44,7 +44,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
     double? statusBarHeight;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      statusBarHeight = await FlutterStatusbarManager.getHeight;
+      statusBarHeight = await StatusBarControl.getHeight;
     } on PlatformException {
       statusBarHeight = 0.0;
     }
@@ -68,7 +68,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
   }
 
   void updateStatusBar() {
-    FlutterStatusbarManager.setColor(
+    StatusBarControl.setColor(
         _statusBarColor!.withOpacity(_statusBarOpacity),
         animated: _statusBarColorAnimated);
   }
@@ -83,7 +83,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
     setState(() {
       _statusBarStyle = val;
     });
-    FlutterStatusbarManager.setStyle(val);
+    StatusBarControl.setStyle(val);
   }
 
   void colorNavBarChanged(Color val) {
@@ -94,7 +94,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
   }
 
   void updateNavBar() {
-    FlutterStatusbarManager.setNavigationBarColor(_navBarColor!,
+    StatusBarControl.setNavigationBarColor(_navBarColor!,
         animated: _navBarColorAnimated);
   }
 
@@ -102,7 +102,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
     setState(() {
       _navBarStyle = val;
     });
-    FlutterStatusbarManager.setNavigationBarStyle(val);
+    StatusBarControl.setNavigationBarStyle(val);
   }
 
   @override
@@ -110,7 +110,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
-        title: const Text('Statusbar Manager Example'),
+        title: const Text('Statusbar Control Example'),
       ),
       body: SafeArea(
         child: Scrollbar(
@@ -176,7 +176,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
                   setState(() {
                     _statusBarHidden = val;
                   });
-                  FlutterStatusbarManager.setHidden(_statusBarHidden,
+                  StatusBarControl.setHidden(_statusBarHidden,
                       animation: _statusBarAnimation);
                 },
               ),
@@ -231,7 +231,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
                   setState(() {
                     _statusBarTranslucent = val;
                   });
-                  FlutterStatusbarManager.setTranslucent(_statusBarTranslucent);
+                  StatusBarControl.setTranslucent(_statusBarTranslucent);
                 },
               ),
               const Divider(height: 25.0),
@@ -243,7 +243,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
                   setState(() {
                     _loadingIndicator = val;
                   });
-                  FlutterStatusbarManager.setNetworkActivityIndicatorVisible(
+                  StatusBarControl.setNetworkActivityIndicatorVisible(
                       _loadingIndicator);
                 },
               ),
@@ -315,7 +315,7 @@ class _StatusBarManagerState extends State<StatusBarManager> {
                   setState(() {
                     _fullscreenMode = val;
                   });
-                  FlutterStatusbarManager.setFullscreen(_fullscreenMode);
+                  StatusBarControl.setFullscreen(_fullscreenMode);
                 },
               ),
             ],

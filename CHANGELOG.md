@@ -1,3 +1,9 @@
+## 3.2.0
+
+- Rename to status_bar_control
+- Re-publish package to pub.dev
+- Update android example app
+
 ## 3.1.3
 
 - Update gradle/wrapper versions

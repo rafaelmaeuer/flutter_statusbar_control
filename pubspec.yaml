@@ -1,7 +1,7 @@
-name: flutter_statusbar_manager
-description: Flutter Statusbar Manager, lets you control the status bar color, style (theme), visibility, and translucent properties across iOS and Android.
-version: 3.1.2
-homepage: https://github.com/rafaelmaeuer/flutter_statusbar_manager
+name: status_bar_control
+description: Status Bar Control, lets you control the status bar color, style (theme), visibility, and translucent properties across iOS and Android.
+version: 3.2.0
+homepage: https://github.com/rafaelmaeuer/flutter_statusbar_control
 
 dependencies:
   flutter:
@@ -9,7 +9,7 @@ dependencies:
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
-  flutter: ">=1.12.0 <2.0.0"
+  flutter: ">=1.12.0"
 
 dev_dependencies:
   flutter_test:
@@ -19,7 +19,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.foo.flutterstatusbarmanager
-        pluginClass: FlutterStatusbarManagerPlugin
+        package: com.foo.statusbarcontrol
+        pluginClass: StatusBarControlPlugin
       ios:
-        pluginClass: FlutterStatusbarManagerPlugin
+        pluginClass: StatusBarControlPlugin

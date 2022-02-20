@@ -1,6 +1,6 @@
-# flutter_statusbar_manager_example
+# Status Bar Control Example
 
-Demonstrates how to use the flutter_statusbar_manager plugin.
+Demonstrates how to use the `status_bar_control` plugin.
 
 ## Getting Started
 

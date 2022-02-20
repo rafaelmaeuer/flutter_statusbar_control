@@ -60,9 +60,9 @@ class _NavigationBarStyle {
   }
 }
 
-class FlutterStatusbarManager {
+class StatusBarControl {
   static const MethodChannel _channel =
-      const MethodChannel('flutter_statusbar_manager');
+      const MethodChannel('status_bar_control');
 
   static Future<bool> setColor(Color color, {bool animated = false}) async {
     if (kIsWeb) return false;
