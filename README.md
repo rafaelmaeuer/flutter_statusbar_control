@@ -6,7 +6,17 @@ Since [flutter_statusbar_manager](https://pub.dev/packages/flutter_statusbar_man
 
 <a href="https://www.buymeacoffee.com/rafaelmaeuer"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕️&slug=rafaelmaeuer&button_colour=F2F2F2&font_colour=000000&font_family=Lato&outline_colour=000000&coffee_colour=FFDD00"></a>
 
-### Updates
+### About
+
+`Status Bar Control`, lets you control the status bar color, style (theme), visibility, and translucent properties across iOS and Android. With some added bonus for Android to control the Navigation Bar.
+
+This plugin is based on React Native's [StatusBar](https://facebook.github.io/react-native/docs/statusbar) component.
+
+The Navigation Bar code was taken from the awesome [flutter-screen-theme-plugin](https://github.com/g123k/flutter-screen-theme-plugin).
+
+The plugin was tested with iOS 15 and Android 12 (API 31).
+
+### Last Updates
 
 - v3.2.0 rename to `status_bar_control` and re-publish to pub.dev
 - v3.1.2 add `cutout`-mode for Android and `SafeArea` to demo app
@@ -16,27 +26,23 @@ Since [flutter_statusbar_manager](https://pub.dev/packages/flutter_statusbar_man
 - v3.0.0 support for null safety thanks to [NarHakobyan](https://github.com/NarHakobyan)
 - v2.0.0 compatible with AndroidX thanks to [lorenzOliveto](https://github.com/lorenzOliveto)
 
-Find a complete list of changes in [CHANGELOG](CHANGELOG.md), tested with iOS 15 and Android 12 (API 31).
+See [CHANGELOG](CHANGELOG.md) for a complete list of changes.
 
-### About
+### Examples
 
-`Status Bar Control`, lets you control the status bar color, style (theme), visibility, and translucent properties across iOS and Android. With some added bonus for Android to control the Navigation Bar.
+Build the example project for iOS and Android from the [example](./example) folder.
 
-This plugin is based on React Native's [StatusBar](https://facebook.github.io/react-native/docs/statusbar) component.
+#### Android
 
-The Navigation Bar code was taken from the awesome [flutter-screen-theme-plugin](https://github.com/g123k/flutter-screen-theme-plugin).
+|                                                                  Status Bar Color                                                                  |                                                                       Status Bar Hide                                                                        |                                                                Navigation Bar                                                                |
+| :------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![Demo App Android Status Bar](https://raw.githubusercontent.com/rafaelmaeuer/flutter_statusbar_control/main/example/assets/android_statusbar.gif) | ![Demo App Android Status Bar hide](https://raw.githubusercontent.com/rafaelmaeuer/flutter_statusbar_control/main/example/assets/android_statusbar_hide.gif) | ![Demo App Android Nav Bar](https://raw.githubusercontent.com/rafaelmaeuer/flutter_statusbar_control/main/example/assets/android_navbar.gif) |
 
-### Examples Android
+#### iOS
 
-|                            Status Bar Color                            |                                 Status Bar Hide                                  |                          Navigation Bar                          |
-| :--------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :--------------------------------------------------------------: |
-| ![Demo App Android Status Bar](./example/assets/android_statusbar.gif) | ![Demo App Android Status Bar hide](./example/assets/android_statusbar_hide.gif) | ![Demo App Android Nav Bar](./example/assets/android_navbar.gif) |
-
-### Examples iOS
-
-|                    Demo Iphone 8                    |                    Demo Iphone X                    |
-| :-------------------------------------------------: | :-------------------------------------------------: |
-| ![Demo App Iphone 8](./example/assets/iphone_8.gif) | ![Demo App Iphone X](./example/assets/iphone_x.gif) |
+|                                                          Demo Iphone 8                                                          |                                                          Demo Iphone X                                                          |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| ![Demo App Iphone 8](https://raw.githubusercontent.com/rafaelmaeuer/flutter_statusbar_control/main/example/assets/iphone_8.gif) | ![Demo App Iphone X](https://raw.githubusercontent.com/rafaelmaeuer/flutter_statusbar_control/main/example/assets/iphone_x.gif) |
 
 *Note: not all of the shown examples might still work in the latest versions of Android or iOS*
 
