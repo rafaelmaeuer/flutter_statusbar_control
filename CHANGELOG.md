@@ -1,3 +1,7 @@
+## 3.2.1
+
+- Fix License and Readme
+
 ## 3.2.0
 
 - Rename to status_bar_control

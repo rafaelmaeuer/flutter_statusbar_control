@@ -49,7 +49,7 @@ Build the example project for iOS and Android from the [example](./example) fold
 ## Installation
 
 ```bash
-status_bar_control: ^3.2.0
+status_bar_control: ^3.2.1
 ```
 
 to your `pubspec.yaml` and run

@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'status_bar_control'
-  s.version          = '3.2.0'
+  s.version          = '3.2.1'
   s.summary          = 'Status Bar Control'
   s.description      = <<-DESC
 Status Bar Control
