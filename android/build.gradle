@@ -1,4 +1,4 @@
-group 'com.foo.statusbarmanager'
+group 'com.foo.statusbarcontrol'
 version '1.0-SNAPSHOT'
 
 buildscript {

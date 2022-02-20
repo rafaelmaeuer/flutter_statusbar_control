@@ -1,6 +1,6 @@
-# Status Bar Manager Example
+# Status Bar Control Example
 
-Demonstrates how to use the `status_bar_manager` plugin.
+Demonstrates how to use the `status_bar_control` plugin.
 
 ## Getting Started
 

@@ -2,13 +2,13 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = 'status_bar_manager'
+  s.name             = 'status_bar_control'
   s.version          = '3.2.0'
-  s.summary          = 'Status Bar Manager'
+  s.summary          = 'Status Bar Control'
   s.description      = <<-DESC
-Status Bar Manager
+Status Bar Control
                        DESC
-  s.homepage         = 'https://github.com/rafaelmaeuer/flutter_statusbar_manager'
+  s.homepage         = 'https://github.com/rafaelmaeuer/flutter_statusbar_control'
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Rafael M.' => 'rafaelmaeuer@gmail.com' }
   s.source           = { :path => '.' }

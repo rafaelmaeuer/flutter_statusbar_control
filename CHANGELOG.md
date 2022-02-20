@@ -1,6 +1,6 @@
 ## 3.2.0
 
-- Rename to status_bar_manager
+- Rename to status_bar_control
 - Re-publish package to pub.dev
 - Update android example app
 

@@ -1,4 +1,4 @@
-package com.foo.statusbarmanager.example;
+package com.foo.statusbarcontrol.example;
 
 import io.flutter.embedding.android.FlutterActivity;
 

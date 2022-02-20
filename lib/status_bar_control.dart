@@ -60,9 +60,9 @@ class _NavigationBarStyle {
   }
 }
 
-class StatusBarManager {
+class StatusBarControl {
   static const MethodChannel _channel =
-      const MethodChannel('status_bar_manager');
+      const MethodChannel('status_bar_control');
 
   static Future<bool> setColor(Color color, {bool animated = false}) async {
     if (kIsWeb) return false;

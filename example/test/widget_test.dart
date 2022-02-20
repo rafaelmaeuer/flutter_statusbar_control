@@ -9,17 +9,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
 
-import 'package:status_bar_manager_example/main.dart';
+import 'package:status_bar_control_example/main.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('test status_bar_manager example',
+  testWidgets('test status_bar_control example',
       (WidgetTester tester) async {
     // Build the app and trigger a frame.
-    await tester.pumpWidget(StatusBarManagerApp());
+    await tester.pumpWidget(StatusBarControlApp());
 
-    // Verify that status bar heigth is not 0
+    // Verify that status bar height is not 0
     expect(find.text('Status Bar Height: 0'), findsNothing);
 
     // Prepare log to read results from
@@ -42,7 +42,7 @@ void main() {
     await tester.idle();
     print(log);
 
-    // Verify result lenght and content
+    // Verify result length and content
     expect(log, hasLength(1));
     expect(
         log.single,
@@ -67,7 +67,7 @@ void main() {
     await tester.idle();
     print(log);
 
-    // Verify result lenght and content
+    // Verify result length and content
     expect(log, hasLength(2));
     expect(
         log.last,
