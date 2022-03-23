@@ -16,11 +16,11 @@ jobs:
 
     steps:
       - name: 🛬 Checkout the code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3
       - name: 🚚 Setup Flutter and version
         uses: subosito/flutter-action@v2.3.0
         with:
-          flutter-version: "2.10.2"
+          flutter-version: "2.10.3"
       - name: 📦 Install packages
         run: flutter pub get
       - name: 🧾 Run tests
