@@ -18,7 +18,7 @@ jobs:
       - name: 🛬 Checkout the code
         uses: actions/checkout@v3
       - name: 🚚 Setup Flutter and version
-        uses: subosito/flutter-action@v2.3.0
+        uses: subosito/flutter-action@v2.6.2
         with:
           flutter-version: "2.10.3"
       - name: 📦 Install packages
