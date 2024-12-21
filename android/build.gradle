@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
@@ -24,6 +24,17 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 31
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     defaultConfig {
         minSdkVersion 16
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -35,4 +46,6 @@ android {
     dependencies {
         api 'androidx.appcompat:appcompat:1.4.1'
     }
+
+    namespace 'com.foo.statusbarcontrol'
 }
