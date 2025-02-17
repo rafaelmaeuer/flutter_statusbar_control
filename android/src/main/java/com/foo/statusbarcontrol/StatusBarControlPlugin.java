@@ -21,7 +21,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
+// import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**
  * StatusBarControlPlugin
@@ -44,14 +44,14 @@ public class StatusBarControlPlugin implements FlutterPlugin, ActivityAware, Met
         channel.setMethodCallHandler(this);
     }
 
-    public static void registerWith(Registrar registrar) {
-        // For compatibility of apps not using the v2 Android embedding
-        Log.d("StatusBarControl", "StatusBarControl: Registered with Compatibility");
-        activity = registrar.activity();
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
-        StatusBarControlPlugin instance = new StatusBarControlPlugin();
-        channel.setMethodCallHandler(instance);
-    }
+    // public static void registerWith(Registrar registrar) {
+    //     // For compatibility of apps not using the v2 Android embedding
+    //     Log.d("StatusBarControl", "StatusBarControl: Registered with Compatibility");
+    //     activity = registrar.activity();
+    //     final MethodChannel channel = new MethodChannel(registrar.messenger(), channelName);
+    //     StatusBarControlPlugin instance = new StatusBarControlPlugin();
+    //     channel.setMethodCallHandler(instance);
+    // }
 
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
