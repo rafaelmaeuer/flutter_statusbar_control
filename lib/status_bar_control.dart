@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -67,7 +66,7 @@ class StatusBarControl {
   static Future<bool> setColor(Color color, {bool animated = false}) async {
     if (kIsWeb) return false;
     return await _channel
-        .invokeMethod("setColor", {'color': color.value, 'animated': animated});
+        .invokeMethod("setColor", {'color': color.toARGB32(), 'animated': animated});
   }
 
   static Future<bool> setTranslucent(bool translucent) async {
@@ -101,7 +100,7 @@ class StatusBarControl {
       {bool animated = false}) async {
     if (kIsWeb) return false;
     return await _channel.invokeMethod(
-        "setNavigationBarColor", {'color': color.value, 'animated': animated});
+        "setNavigationBarColor", {'color': color.toARGB32(), 'animated': animated});
   }
 
   static Future<bool> setNavigationBarStyle(NavigationBarStyle style) async {
