@@ -5,6 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
@@ -14,8 +15,7 @@ import 'package:status_bar_control_example/main.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('test status_bar_control example',
-      (WidgetTester tester) async {
+  testWidgets('test status_bar_control example', (WidgetTester tester) async {
     // Build the app and trigger a frame.
     await tester.pumpWidget(StatusBarControlApp());
 
@@ -24,35 +24,41 @@ void main() {
 
     // Prepare log to read results from
     final List<MethodCall> log = <MethodCall>[];
-    TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
-        .setMockMethodCallHandler(SystemChannels.platform,
-            (MethodCall methodCall) async {
-      log.add(methodCall);
-    });
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(SystemChannels.platform, (
+          MethodCall methodCall,
+        ) async {
+          log.add(methodCall);
+          return null;
+        });
 
     // The first call is a cache miss and will queue a microtask
     SystemChrome.setApplicationSwitcherDescription(
-        const ApplicationSwitcherDescription(
-      label: '',
-      primaryColor: 4278190080, // set status bar color to black
-    ));
+      const ApplicationSwitcherDescription(
+        label: '',
+        primaryColor: 4278190080, // set status bar color to black
+      ),
+    );
     expect(tester.binding.microtaskCount, equals(1));
 
     // Flush all microtasks
     await tester.idle();
-    print(log);
+    if (kDebugMode) {
+      print(log);
+    }
 
     // Verify result length and content
     expect(log, hasLength(1));
     expect(
-        log.single,
-        isMethodCall(
-          'SystemChrome.setApplicationSwitcherDescription',
-          arguments: <String, dynamic>{
-            'label': '',
-            'primaryColor': 4278190080, // check status bar color is black
-          },
-        ));
+      log.single,
+      isMethodCall(
+        'SystemChrome.setApplicationSwitcherDescription',
+        arguments: <String, dynamic>{
+          'label': '',
+          'primaryColor': 4278190080, // check status bar color is black
+        },
+      ),
+    );
 
     // Clear Log
     log.clear();
@@ -65,19 +71,22 @@ void main() {
 
     // Flush all microtasks
     await tester.idle();
-    print(log);
+    if (kDebugMode) {
+      print(log);
+    }
 
     // Verify result length and content
     expect(log, hasLength(2));
     expect(
-        log.last,
-        isMethodCall(
-          'SystemChrome.setApplicationSwitcherDescription',
-          arguments: <String, dynamic>{
-            'label': '',
-            'primaryColor': 4280391411, // check status bar color is bg blue
-          },
-        ));
+      log.last,
+      isMethodCall(
+        'SystemChrome.setApplicationSwitcherDescription',
+        arguments: <String, dynamic>{
+          'label': '',
+          'primaryColor': 4280391411, // check status bar color is bg blue
+        },
+      ),
+    );
 
     // Clear Log
     log.clear();
