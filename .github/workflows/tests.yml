@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: 🛬 Checkout the code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: 🚚 Setup Flutter and version
         uses: subosito/flutter-action@v2.3.0
         with:
