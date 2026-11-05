@@ -1,3 +1,14 @@
+## 4.0.0
+
+- **Breaking:** require Dart 3.6 / Flutter 3.27, iOS 13 and Android API 21
+- **Breaking:** remove deprecated v1 embedding `registerWith`
+- Add `namespace`, Gradle 8/9 and AGP 8/9 support, replace `jcenter()` with `mavenCentral()`
+- Add Swift Package Manager support for iOS
+- Replace deprecated Android system UI APIs with `WindowInsetsControllerCompat`
+- Support status and navigation bar colors on Android 15+ (edge-to-edge)
+- Replace deprecated `Color.value` with `Color.toARGB32()`
+- Regenerate example app and update GitHub actions
+
 ## 3.2.1
 
 - Fix License and Readme

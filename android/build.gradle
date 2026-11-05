@@ -4,35 +4,41 @@ version '1.0-SNAPSHOT'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:8.13.0'
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 31
+    namespace 'com.foo.statusbarcontrol'
+    compileSdk 36
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 
     defaultConfig {
-        minSdkVersion 16
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-    }
-    lintOptions {
-        disable 'InvalidPackage'
+        minSdk 21
     }
 
-    dependencies {
-        api 'androidx.appcompat:appcompat:1.4.1'
+    lint {
+        disable 'InvalidPackage'
     }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.13.1'
 }

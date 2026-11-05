@@ -9,79 +9,74 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart';
 
+import 'package:status_bar_control/status_bar_control.dart';
 import 'package:status_bar_control_example/main.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('test status_bar_control example',
-      (WidgetTester tester) async {
-    // Build the app and trigger a frame.
-    await tester.pumpWidget(StatusBarControlApp());
+  const channel = MethodChannel('status_bar_control');
+  final List<MethodCall> log = <MethodCall>[];
 
-    // Verify that status bar height is not 0
-    expect(find.text('Status Bar Height: 0'), findsNothing);
-
-    // Prepare log to read results from
-    final List<MethodCall> log = <MethodCall>[];
-    TestDefaultBinaryMessengerBinding.instance!.defaultBinaryMessenger
-        .setMockMethodCallHandler(SystemChannels.platform,
-            (MethodCall methodCall) async {
+  setUp(() {
+    // Mock the native side of the plugin and log all method calls
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
       log.add(methodCall);
+      return methodCall.method == 'getHeight' ? 24.0 : true;
     });
+  });
 
-    // The first call is a cache miss and will queue a microtask
-    SystemChrome.setApplicationSwitcherDescription(
-        const ApplicationSwitcherDescription(
-      label: '',
-      primaryColor: 4278190080, // set status bar color to black
-    ));
-    expect(tester.binding.microtaskCount, equals(1));
+  tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
+    log.clear();
+  });
 
-    // Flush all microtasks
-    await tester.idle();
-    print(log);
+  testWidgets('test status_bar_control example', (WidgetTester tester) async {
+    // Build the app and trigger a frame.
+    await tester.pumpWidget(const StatusBarControlApp());
+    await tester.pumpAndSettle();
 
-    // Verify result length and content
-    expect(log, hasLength(1));
+    // Verify that status bar height is read from the platform
+    expect(log, contains(isMethodCall('getHeight', arguments: null)));
+    expect(find.text('Status Bar Height: 24.0'), findsOneWidget);
+    log.clear();
+
+    // Select orange status bar color
+    await tester.tap(find.widgetWithText(RadioListTile<Color>, 'Orange').first);
+    await tester.pumpAndSettle();
     expect(
         log.single,
-        isMethodCall(
-          'SystemChrome.setApplicationSwitcherDescription',
-          arguments: <String, dynamic>{
-            'label': '',
-            'primaryColor': 4278190080, // check status bar color is black
-          },
-        ));
-
-    // Clear Log
+        isMethodCall('setColor', arguments: <String, dynamic>{
+          'color': Colors.orange.toARGB32(),
+          'animated': false,
+        }));
     log.clear();
-    expect(tester.binding.microtaskCount, equals(0));
-    expect(log.isEmpty, isTrue);
 
-    // Tap the 'hidden' toggle and trigger a frame.
-    await tester.tap(find.widgetWithText(SwitchListTile, "Hidden:"));
-    await tester.pump();
-
-    // Flush all microtasks
-    await tester.idle();
-    print(log);
-
-    // Verify result length and content
-    expect(log, hasLength(2));
+    // Toggle the 'hidden' switch
+    final hiddenSwitch = find.widgetWithText(SwitchListTile, 'Hidden:');
+    await tester.scrollUntilVisible(hiddenSwitch, 100.0);
+    await tester.tap(hiddenSwitch);
+    await tester.pumpAndSettle();
     expect(
-        log.last,
-        isMethodCall(
-          'SystemChrome.setApplicationSwitcherDescription',
-          arguments: <String, dynamic>{
-            'label': '',
-            'primaryColor': 4280391411, // check status bar color is bg blue
-          },
-        ));
-
-    // Clear Log
+        log.single,
+        isMethodCall('setHidden', arguments: <String, dynamic>{
+          'hidden': true,
+          'animation': 'none',
+        }));
     log.clear();
-    expect(tester.binding.microtaskCount, equals(0));
-    expect(log.isEmpty, isTrue);
+
+    // Select dark content status bar style
+    final darkContent =
+        find.widgetWithText(RadioListTile<StatusBarStyle>, 'DARK_CONTENT');
+    await tester.scrollUntilVisible(darkContent, 100.0);
+    await tester.tap(darkContent);
+    await tester.pumpAndSettle();
+    expect(
+        log.single,
+        isMethodCall('setStyle', arguments: <String, dynamic>{
+          'style': 'dark-content',
+        }));
   });
 }

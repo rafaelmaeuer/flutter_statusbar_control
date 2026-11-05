@@ -1,6 +1,6 @@
 name: status_bar_control
 description: Status Bar Control, lets you control the status bar color, style (theme), visibility, and translucent properties across iOS and Android.
-version: 3.2.1
+version: 4.0.0
 homepage: https://github.com/rafaelmaeuer/flutter_statusbar_control
 
 dependencies:
@@ -8,8 +8,8 @@ dependencies:
     sdk: flutter
 
 environment:
-  sdk: ">=2.14.0 <3.0.0"
-  flutter: ">=1.12.0"
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.27.0"
 
 dev_dependencies:
   flutter_test:

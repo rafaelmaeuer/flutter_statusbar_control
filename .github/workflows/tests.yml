@@ -16,12 +16,52 @@ jobs:
 
     steps:
       - name: 🛬 Checkout the code
-        uses: actions/checkout@v3
-      - name: 🚚 Setup Flutter and version
-        uses: subosito/flutter-action@v2.3.0
+        uses: actions/checkout@v6
+      - name: 🚚 Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.10.3"
+          channel: stable
+          cache: true
       - name: 📦 Install packages
         run: flutter pub get
+      - name: 🔍 Analyze plugin and example
+        run: flutter analyze && cd example && flutter analyze
       - name: 🧾 Run tests
         run: cd example && flutter test
+
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛬 Checkout the code
+        uses: actions/checkout@v6
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: 🚚 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: 🤖 Build Android example
+        run: cd example && flutter build apk --debug
+
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      # Checkout into a folder named like the plugin, otherwise Swift Package
+      # Manager fails to resolve the plugin for the example app
+      - name: 🛬 Checkout the code
+        uses: actions/checkout@v6
+        with:
+          path: status_bar_control
+      - name: 🚚 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: 🍏 Build iOS example
+        run: cd status_bar_control/example && flutter build ios --no-codesign --debug

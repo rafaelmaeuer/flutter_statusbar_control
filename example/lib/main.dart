@@ -7,14 +7,14 @@ import 'package:status_bar_control/status_bar_control.dart';
 void main() => runApp(const StatusBarControlApp());
 
 class StatusBarControlApp extends StatefulWidget {
-  const StatusBarControlApp({Key? key}) : super(key: key);
+  const StatusBarControlApp({super.key});
 
   factory StatusBarControlApp.forDesignTime() {
     return const StatusBarControlApp();
   }
 
   @override
-  _StatusBarControlAppState createState() => _StatusBarControlAppState();
+  State<StatusBarControlApp> createState() => _StatusBarControlAppState();
 }
 
 class _StatusBarControlAppState extends State<StatusBarControlApp> {
@@ -60,6 +60,20 @@ class _StatusBarControlAppState extends State<StatusBarControlApp> {
     return Text(text, style: textStyle);
   }
 
+  Widget renderRadioGroup<T>(
+      T? groupValue, Map<T, String> options, ValueChanged<T> onChanged) {
+    return RadioGroup<T>(
+      groupValue: groupValue,
+      onChanged: (T? v) => onChanged(v as T),
+      child: Column(
+        children: options.entries
+            .map((option) => RadioListTile<T>(
+                value: option.key, title: Text(option.value), dense: true))
+            .toList(),
+      ),
+    );
+  }
+
   void colorBarChanged(Color val) {
     setState(() {
       _statusBarColor = val;
@@ -69,7 +83,7 @@ class _StatusBarControlAppState extends State<StatusBarControlApp> {
 
   void updateStatusBar() {
     StatusBarControl.setColor(
-        _statusBarColor!.withOpacity(_statusBarOpacity),
+        _statusBarColor!.withValues(alpha: _statusBarOpacity),
         animated: _statusBarColorAnimated);
   }
 
@@ -131,30 +145,12 @@ class _StatusBarControlAppState extends State<StatusBarControlApp> {
                 },
               ),
               const Text("Color:"),
-              RadioListTile(
-                  value: Colors.black,
-                  title: const Text("Black"),
-                  onChanged: (Color? v) => colorBarChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarColor),
-              RadioListTile(
-                  value: Colors.orange,
-                  title: const Text("Orange"),
-                  onChanged: (Color? v) => colorBarChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarColor),
-              RadioListTile(
-                  value: Colors.greenAccent,
-                  title: const Text("Green"),
-                  onChanged: (Color? v) => colorBarChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarColor),
-              RadioListTile(
-                  value: Colors.white30,
-                  title: const Text("White"),
-                  onChanged: (Color? v) => colorBarChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarColor),
+              renderRadioGroup(_statusBarColor, {
+                Colors.black: "Black",
+                Colors.orange: "Orange",
+                Colors.greenAccent: "Green",
+                Colors.white30: "White",
+              }, colorBarChanged),
               const Text("Opacity:"),
               Slider(
                 value: _statusBarOpacity,
@@ -181,47 +177,18 @@ class _StatusBarControlAppState extends State<StatusBarControlApp> {
                 },
               ),
               const Text("Animation (iOS):"),
-              RadioListTile(
-                  value: StatusBarAnimation.NONE,
-                  title: const Text("NONE"),
-                  onChanged: (StatusBarAnimation? v) =>
-                      statusBarAnimationChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarAnimation),
-              RadioListTile(
-                  value: StatusBarAnimation.FADE,
-                  title: const Text("FADE"),
-                  onChanged: (StatusBarAnimation? v) =>
-                      statusBarAnimationChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarAnimation),
-              RadioListTile(
-                  value: StatusBarAnimation.SLIDE,
-                  title: const Text("SLIDE"),
-                  onChanged: (StatusBarAnimation? v) =>
-                      statusBarAnimationChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarAnimation),
+              renderRadioGroup(_statusBarAnimation, {
+                StatusBarAnimation.NONE: "NONE",
+                StatusBarAnimation.FADE: "FADE",
+                StatusBarAnimation.SLIDE: "SLIDE",
+              }, statusBarAnimationChanged),
               const Divider(height: 25.0),
               renderTitle("Status Bar Style:"),
-              RadioListTile(
-                  value: StatusBarStyle.DEFAULT,
-                  title: const Text("DEFAULT"),
-                  onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarStyle),
-              RadioListTile(
-                  value: StatusBarStyle.LIGHT_CONTENT,
-                  title: const Text("LIGHT_CONTENT"),
-                  onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarStyle),
-              RadioListTile(
-                  value: StatusBarStyle.DARK_CONTENT,
-                  title: const Text("DARK_CONTENT"),
-                  onChanged: (StatusBarStyle? v) => statusBarStyleChanged(v!),
-                  dense: true,
-                  groupValue: _statusBarStyle),
+              renderRadioGroup(_statusBarStyle, {
+                StatusBarStyle.DEFAULT: "DEFAULT",
+                StatusBarStyle.LIGHT_CONTENT: "LIGHT_CONTENT",
+                StatusBarStyle.DARK_CONTENT: "DARK_CONTENT",
+              }, statusBarStyleChanged),
               const Divider(height: 25.0),
               renderTitle("Status Bar Translucent (Android):"),
               SwitchListTile(
@@ -259,53 +226,19 @@ class _StatusBarControlAppState extends State<StatusBarControlApp> {
                 },
               ),
               const Text("Color:"),
-              RadioListTile(
-                  value: Colors.black,
-                  title: const Text("Black"),
-                  onChanged: (Color? v) => colorNavBarChanged(v!),
-                  dense: true,
-                  groupValue: _navBarColor),
-              RadioListTile(
-                  value: Colors.orange,
-                  title: const Text("Orange"),
-                  onChanged: (Color? v) => colorNavBarChanged(v!),
-                  dense: true,
-                  groupValue: _navBarColor),
-              RadioListTile(
-                  value: Colors.greenAccent,
-                  title: const Text("Green"),
-                  onChanged: (Color? v) => colorNavBarChanged(v!),
-                  dense: true,
-                  groupValue: _navBarColor),
-              RadioListTile(
-                  value: Colors.white12,
-                  title: const Text("white"),
-                  onChanged: (Color? v) => colorNavBarChanged(v!),
-                  dense: true,
-                  groupValue: _navBarColor),
+              renderRadioGroup(_navBarColor, {
+                Colors.black: "Black",
+                Colors.orange: "Orange",
+                Colors.greenAccent: "Green",
+                Colors.white12: "white",
+              }, colorNavBarChanged),
               const Divider(height: 25.0),
               renderTitle("Navigation Bar Style (Android):"),
-              RadioListTile(
-                  value: NavigationBarStyle.DEFAULT,
-                  title: const Text("DEFAULT"),
-                  onChanged: (NavigationBarStyle? v) =>
-                      navigationBarStyleChanged(v!),
-                  dense: true,
-                  groupValue: _navBarStyle),
-              RadioListTile(
-                  value: NavigationBarStyle.LIGHT,
-                  title: const Text("LIGHT"),
-                  onChanged: (NavigationBarStyle? v) =>
-                      navigationBarStyleChanged(v!),
-                  dense: true,
-                  groupValue: _navBarStyle),
-              RadioListTile(
-                  value: NavigationBarStyle.DARK,
-                  title: const Text("DARK"),
-                  onChanged: (NavigationBarStyle? v) =>
-                      navigationBarStyleChanged(v!),
-                  dense: true,
-                  groupValue: _navBarStyle),
+              renderRadioGroup(_navBarStyle, {
+                NavigationBarStyle.DEFAULT: "DEFAULT",
+                NavigationBarStyle.LIGHT: "LIGHT",
+                NavigationBarStyle.DARK: "DARK",
+              }, navigationBarStyleChanged),
               const Divider(height: 25.0),
               renderTitle("Fullscreen mode:"),
               SwitchListTile(
