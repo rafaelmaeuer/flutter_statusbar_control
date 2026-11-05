@@ -1,4 +1,4 @@
-#import "StatusBarControlPlugin.h"
+#import "./include/status_bar_control/StatusBarControlPlugin.h"
 
 @implementation StatusBarControlPlugin
 

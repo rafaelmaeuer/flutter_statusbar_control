@@ -1,6 +1,6 @@
 # Status Bar Control
 
-[![Flutter_Tests](https://github.com/rafaelmaeuer/flutter_statusbar_manager/actions/workflows/tests.yml/badge.svg)](https://github.com/rafaelmaeuer/flutter_statusbar_manager/actions/workflows/tests.yml)
+[![Flutter_Tests](https://github.com/rafaelmaeuer/flutter_statusbar_control/actions/workflows/tests.yml/badge.svg)](https://github.com/rafaelmaeuer/flutter_statusbar_control/actions/workflows/tests.yml)
 
 Since [flutter_statusbar_manager](https://pub.dev/packages/flutter_statusbar_manager) is no longer maintained, this package is a re-publish and will be occasionally updated for continued use in existing projects.
 
@@ -20,10 +20,11 @@ This plugin is based on React Native's [StatusBar](https://facebook.github.io/re
 
 The Navigation Bar code was taken from the awesome [flutter-screen-theme-plugin](https://github.com/g123k/flutter-screen-theme-plugin).
 
-The plugin was tested with iOS 15 and Android 12 (API 31).
+The plugin was tested with Flutter 3.47, iOS 26 and Android 14 / 16 (API 34 / 36). It requires Flutter 3.27 or newer, iOS 13 and Android 5.0 (API 21).
 
 ### Last Updates
 
+- v4.0.0 support Gradle 8/9, AGP 8/9, Swift Package Manager and Android 15+ edge-to-edge, thanks to [mbfakourii](https://github.com/mbfakourii) and [lukas-pierce](https://github.com/lukas-pierce)
 - v3.2.0 rename to `status_bar_control` and re-publish to pub.dev
 - v3.1.2 add `cutout`-mode for Android and `SafeArea` to demo app
 - v3.1.1 resolve `UIOverlay`-deprecations and update of demo app
@@ -55,7 +56,7 @@ Build the example project for iOS and Android from the [example](./example) fold
 ## Installation
 
 ```bash
-status_bar_control: ^3.2.1
+status_bar_control: ^4.0.0
 ```
 
 to your `pubspec.yaml` and run
@@ -99,6 +100,8 @@ import 'package:status_bar_control/status_bar_control.dart';
 ###### Platforms: Android
 
 The `setColor` method will set the status bar background color. On iOS the method will always return a successful `Future`.
+
+*Note: apps targeting Android 15 (API 35) or higher are always drawn edge-to-edge and the system ignores status bar colors. In this case the plugin draws a colored view behind the status bar instead, which covers the app content in that area.*
 
 | Parameter |  Type   | Default | Required | Description                                                     |
 | :-------- | :-----: | :-----: | :------: | :-------------------------------------------------------------- |
@@ -177,6 +180,8 @@ double height = await StatusBarControl.getHeight
 ###### Platforms: Android
 
 The `setNavigationBarColor` method will set the navigation bar background color. On iOS the method will always return a successful `Future`.
+
+*Note: on Android 15 (API 35) or higher the same applies as for `setColor`, the color is drawn by a view behind the navigation bar.*
 
 | Parameter |  Type   | Default | Required | Description                                 |
 | :-------- | :-----: | :-----: | :------: | :------------------------------------------ |
