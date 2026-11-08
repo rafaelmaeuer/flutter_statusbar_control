@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: 🛬 Checkout the code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: 🚚 Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: 🛬 Checkout the code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: ☕ Setup Java
         uses: actions/setup-java@v5
         with:
@@ -55,7 +55,7 @@ jobs:
       # Checkout into a folder named like the plugin, otherwise Swift Package
       # Manager fails to resolve the plugin for the example app
       - name: 🛬 Checkout the code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: status_bar_control
       - name: 🚚 Setup Flutter
